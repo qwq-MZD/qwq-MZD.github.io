@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 注册页面特有样式 */
+        .register-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .register-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .register-header h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #777;
+            font-size: 12px;
+        }
+        .register-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .register-button:hover {
+            background-color: #45a049;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .login-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        #authMessage {
+            display: none;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .error {
+            background-color: #ffebee;
+            color: #f44336;
+            display: block !important;
+        }
+        .success {
+            background-color: #e8f5e9;
+            color: #4CAF50;
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-header">
+            <h1>用户注册</h1>
+            <p>创建您的新账号</p>
+        </div>
+        
+        <div id="authMessage" class="message"></div>
+        
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" required>
+                <small>4-20个字符，只能包含字母、数字和下划线</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" required>
+                <small>至少6个字符</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">确认密码</label>
+                <input type="password" id="confirmPassword" required>
+            </div>
+            
+            <button type="submit" class="register-button">注册</button>
+        </form>
+        
+        <div class="login-link">
+            已有账号？<a href="login.html">立即登录</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const confirmPassword = document.getElementById('confirmPassword').value.trim();
+            const messageDiv = document.getElementById('authMessage');
+            
+            // 验证输入
+            if (!username || !password || !confirmPassword) {
+                messageDiv.textContent = '请填写所有字段';
+                messageDiv.className = 'message error';
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                messageDiv.textContent = '两次密码输入不一致';
+                messageDiv.className = 'message error';
+                return;
+            }
+            
+            if (username.length < 4 || username.length > 20) {
+                messageDiv.textContent = '用户名长度应在4-20个字符之间';
+                messageDiv.className = 'message error';
+                return;
+            }
+            
+            if (password.length < 6) {
+                messageDiv.textContent = '密码长度至少6个字符';
+                messageDiv.className = 'message error';
+                return;
+            }
+            
+            // 检查用户名是否已存在
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            if (users.some(u => u.username === username)) {
+                messageDiv.textContent = '用户名已存在';
+                messageDiv.className = 'message error';
+                return;
+            }
+            
+            // 存储用户（实际项目应该加密密码！）
+            users.push({ username, password });
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            // 注册成功
+            messageDiv.textContent = '注册成功！即将跳转到登录页...';
+            messageDiv.className = 'message success';
+            
+            // 跳转到登录页
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

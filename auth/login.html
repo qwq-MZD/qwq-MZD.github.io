@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户登录</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 登录页面特有样式 */
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .login-header h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .login-button:hover {
+            background-color: #45a049;
+        }
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .register-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        #authMessage {
+            display: none;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .error {
+            background-color: #ffebee;
+            color: #f44336;
+            display: block !important;
+        }
+        .success {
+            background-color: #e8f5e9;
+            color: #4CAF50;
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>用户登录</h1>
+            <p>请输入您的账号信息</p>
+        </div>
+        
+        <div id="authMessage" class="message"></div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" required>
+            </div>
+            
+            <button type="submit" class="login-button">登录</button>
+        </form>
+        
+        <div class="register-link">
+            还没有账号？<a href="register.html">立即注册</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const messageDiv = document.getElementById('authMessage');
+            
+            // 简单验证
+            if (!username || !password) {
+                messageDiv.textContent = '请输入用户名和密码';
+                messageDiv.className = 'message error';
+                return;
+            }
+            
+            // 获取存储的用户
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(u => u.username === username);
+            
+            if (!user) {
+                messageDiv.textContent = '用户名不存在';
+                messageDiv.className = 'message error';
+                return;
+            }
+            
+            // 验证密码（实际项目应该加密）
+            if (user.password !== password) {
+                messageDiv.textContent = '密码错误';
+                messageDiv.className = 'message error';
+                return;
+            }
+            
+            // 登录成功
+            messageDiv.textContent = '登录成功！正在跳转...';
+            messageDiv.className = 'message success';
+            
+            // 保存登录状态（关闭浏览器后失效）
+            sessionStorage.setItem('isLoggedIn', 'true');
+            sessionStorage.setItem('currentUser', username);
+            
+            // 跳转到首页
+            setTimeout(() => {
+                window.location.href = '../index.html';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
