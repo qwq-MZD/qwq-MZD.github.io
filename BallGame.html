@@ -6,6 +6,11 @@
         body {
             text-align: center;
             font-family: Arial, sans-serif;
+            position: relative; /* 新增：为作弊按钮定位做准备 */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
         }
         canvas {
             background: #f0f0f0;
@@ -16,12 +21,32 @@
         h1 {
             color: #333;
         }
+        /* 新增：隐藏的作弊按钮样式 */
+        #cheatButton {
+            position: fixed;
+            bottom: 5px;
+            right: 5px;
+            width: 60px;
+            height: 20px;
+            opacity: 0.1; /* 默认几乎透明 */
+            background: #000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        #cheatButton:hover {
+            opacity: 1; /* 鼠标悬停时显示 */
+        }
     </style>
 </head>
 <body>
     <h1>点击气球得分！</h1>
     <p>得分: <span id="score">0</span></p>
     <canvas id="gameCanvas" width="400" height="400"></canvas>
+    
+    <!-- 新增：隐藏的作弊按钮 -->
+    <button id="cheatButton" onclick="cheat()">作弊+10</button>
 
     <script>
         // 获取Canvas和上下文
@@ -38,6 +63,13 @@
             dx: (Math.random() - 0.5) * 2,
             dy: (Math.random() - 0.5) * 2
         };
+
+        // 新增：作弊函数
+        function cheat() {
+            score += 10;
+            updateScore();
+            alert("作弊成功！分数+10");
+        }
 
         // 更新分数显示
         function updateScore() {
