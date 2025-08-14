@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .password-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        input[type="password"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #protected-content {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+        #admin-link {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        #admin-link a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        #admin-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Administrator</h1>
+    
+    <div class="password-container">
+        <h2>请输入密码</h2>
+        <input type="password" id="passwordInput" placeholder="输入密码">
+        <button onclick="checkPassword()">提交</button>
+        <p id="errorMessage" class="error"></p>
+    </div>
+    
+    <div id="protected-content">
+        <h2>验证成功！</h2>
+        <p>您现在可以访问管理员页面。</p>
+    </div>
+
+    <div id="admin-link">
+        <a href="Admin.html">进入 Admin 页面 →</a>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById("passwordInput").value;
+            const errorElement = document.getElementById("errorMessage");
+            const protectedContent = document.getElementById("protected-content");
+            const adminLink = document.getElementById("admin-link");
+            
+            if (password === "mzd123") {
+                protectedContent.style.display = "block";
+                adminLink.style.display = "block";
+                errorElement.textContent = "";
+                document.querySelector(".password-container").style.display = "none";
+                
+                // 存储验证状态，供 Admin.html 检查
+                sessionStorage.setItem("adminAuth", "true");
+            } else {
+                errorElement.textContent = "密码错误，请重试！";
+                protectedContent.style.display = "none";
+                adminLink.style.display = "none";
+            }
+        }
+        
+        // 允许按回车键提交密码
+        document.getElementById("passwordInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html>
