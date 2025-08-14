@@ -59,13 +59,8 @@
                 gifImage.src = canvas.toDataURL('image/png');
                 gifImage.style.display = 'block';
             }
-
-            // 方法2：通过监听 GIF 播放时间（需要知道确切时长）
-            setTimeout(freezeGif, 3000); // 假设 GIF 时长为 3 秒
-
-            // 方法3：使用 libgif.js 库精确控制（需额外引入）
-            // 详见：https://github.com/buzzfeed/libgif-js
         });
     </script>
 </body>
 </html>
+
