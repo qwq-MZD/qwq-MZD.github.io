@@ -3,13 +3,69 @@
 <head>
     <title>404 - Page Not Found</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        h1 { color: #ff3e3e; }
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f5f5f5;
+            overflow: hidden;
+        }
+        #gif-container {
+            position: relative;
+        }
+        #gif-image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+        .home-button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
-    <h1>404</h1>
-    <p>Oops! The page you're looking for doesn't exist.</p>
-    <a href="/">Go back to Home</a>
+    <div id="gif-container">
+        <!-- 使用静态图片作为后备 -->
+        <img id="gif-image" src="404.gif" alt="404 Error">
+        <a href="/" class="home-button">返回首页</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gifImage = document.getElementById('gif-image');
+            
+            // 方法1：使用 canvas 冻结最后一帧（推荐）
+            function freezeGif() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = gifImage.width;
+                canvas.height = gifImage.height;
+                ctx.drawImage(gifImage, 0, 0);
+                
+                // 替换 GIF 为冻结的 canvas
+                gifImage.src = canvas.toDataURL('image/png');
+                gifImage.style.display = 'block';
+            }
+
+            // 方法2：通过监听 GIF 播放时间（需要知道确切时长）
+            setTimeout(freezeGif, 3000); // 假设 GIF 时长为 3 秒
+
+            // 方法3：使用 libgif.js 库精确控制（需额外引入）
+            // 详见：https://github.com/buzzfeed/libgif-js
+        });
+    </script>
 </body>
 </html>
