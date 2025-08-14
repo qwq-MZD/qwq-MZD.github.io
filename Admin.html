@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // 检查是否通过验证，否则跳回 index.html
+        if (sessionStorage.getItem("adminAuth") !== "true") {
+            window.location.href = "index.html";
+        }
+    </script>
+
+    <h1>Admin 控制面板</h1>
+    
+    <div class="content">
+        <p>欢迎访问管理员页面！</p>
+        <p>这里是受保护的内容，只有输入正确密码后才能查看。</p>
+        <p><a href="index.html">返回首页</a></p>
+    </div>
+</body>
+</html>
