@@ -14,21 +14,21 @@
             overflow: hidden;
             background: #000;
         }
-        #gif-container {
-            position: fixed; /* 改为 fixed 定位 */
+        #media-container {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
         }
-        #gif-image {
+        #media-container img, 
+        #media-container video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
         }
         .home-button {
-            position: fixed; /* 同步改为 fixed 定位 */
+            position: fixed;
             bottom: 10%;
             left: 50%;
             transform: translateX(-50%);
@@ -45,44 +45,30 @@
     </style>
 </head>
 <body>
-    <div id="gif-container">
-        <img id="gif-image" src="404.gif" alt="404动画">
+    <div id="media-container">
+        <!-- 初始显示 GIF -->
+        <img id="animated-gif" src="404.gif" alt="404动画">
+        <!-- 隐藏的静态图片 -->
+        <img id="static-image" src="Picture/404.jpg" alt="404静态图" style="display:none;">
         <a href="/" class="home-button">返回首页</a>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const gif = document.getElementById('gif-image');
+            const gif = document.getElementById('animated-gif');
+            const staticImg = document.getElementById('static-image');
             
-            // 方法：通过 GIF 的 onload 事件获取真实渲染尺寸
-            gif.onload = function() {
-                setTimeout(() => {
-                    freezeGif(gif);
-                }, 3000); // 假设 GIF 时长为 3 秒
+            // GIF 播放完成后切换为静态图
+            setTimeout(() => {
+                gif.style.display = 'none';
+                staticImg.style.display = 'block';
+            }, 3000); // 3秒后切换（需≥GIF实际时长）
+            
+            // 如果GIF加载失败，直接显示静态图
+            gif.onerror = function() {
+                gif.style.display = 'none';
+                staticImg.style.display = 'block';
             };
-
-            // 强制触发 onload（如果 GIF 已缓存）
-            if (gif.complete) gif.onload();
-
-            function freezeGif(img) {
-                const container = document.getElementById('gif-container');
-                const canvas = document.createElement('canvas');
-                
-                // 使用浏览器实际渲染尺寸（非 HTML 属性尺寸）
-                canvas.width = img.offsetWidth;
-                canvas.height = img.offsetHeight;
-                
-                canvas.getContext('2d').drawImage(
-                    img, 
-                    0, 0, img.offsetWidth, img.offsetHeight, // 源尺寸
-                    0, 0, canvas.width, canvas.height        // 目标尺寸
-                );
-                
-                // 替换为 Canvas 图像
-                container.innerHTML = '';
-                container.appendChild(canvas);
-                container.innerHTML += '<a href="/" class="home-button">返回首页</a>';
-            }
         });
     </script>
 </body>
