@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>点击气球小游戏</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            background: #f0f0f0;
+            display: block;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>点击气球得分！</h1>
+    <p>得分: <span id="score">0</span></p>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+    <script>
+        // 获取Canvas和上下文
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        
+        // 游戏变量
+        let score = 0;
+        let balloon = {
+            x: Math.random() * (canvas.width - 40),
+            y: Math.random() * (canvas.height - 40),
+            radius: 20,
+            speed: 2,
+            dx: (Math.random() - 0.5) * 2,
+            dy: (Math.random() - 0.5) * 2
+        };
+
+        // 更新分数显示
+        function updateScore() {
+            document.getElementById("score").textContent = score;
+        }
+
+        // 绘制气球
+        function drawBalloon() {
+            ctx.beginPath();
+            ctx.arc(balloon.x, balloon.y, balloon.radius, 0, Math.PI * 2);
+            ctx.fillStyle = "red";
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        // 检测点击
+        canvas.addEventListener("click", function(event) {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
+            
+            // 计算点击是否在气球上
+            const distance = Math.sqrt(
+                (mouseX - balloon.x) ** 2 + (mouseY - balloon.y) ** 2
+            );
+            
+            if (distance < balloon.radius) {
+                score++;
+                updateScore();
+                resetBalloon();
+            }
+        });
+
+        // 重置气球位置和速度
+        function resetBalloon() {
+            balloon.x = Math.random() * (canvas.width - 40);
+            balloon.y = Math.random() * (canvas.height - 40);
+            balloon.dx = (Math.random() - 0.5) * 4;
+            balloon.dy = (Math.random() - 0.5) * 4;
+        }
+
+        // 更新气球位置
+        function update() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // 移动气球
+            balloon.x += balloon.dx;
+            balloon.y += balloon.dy;
+            
+            // 边界检测
+            if (balloon.x + balloon.radius > canvas.width || balloon.x - balloon.radius < 0) {
+                balloon.dx = -balloon.dx;
+            }
+            if (balloon.y + balloon.radius > canvas.height || balloon.y - balloon.radius < 0) {
+                balloon.dy = -balloon.dy;
+            }
+            
+            drawBalloon();
+            requestAnimationFrame(update);
+        }
+
+        // 开始游戏
+        update();
+    </script>
+</body>
+</html>
