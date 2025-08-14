@@ -15,17 +15,20 @@
             background: #000;
         }
         #gif-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
+            position: fixed; /* 改为 fixed 定位 */
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
         }
         #gif-image {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* 关键：保持比例填充整个容器 */
+            object-fit: cover;
+            display: block;
         }
         .home-button {
-            position: absolute;
+            position: fixed; /* 同步改为 fixed 定位 */
             bottom: 10%;
             left: 50%;
             transform: translateX(-50%);
@@ -51,18 +54,34 @@
         document.addEventListener('DOMContentLoaded', function() {
             const gif = document.getElementById('gif-image');
             
-            // 方法1：通过GIF时长控制（需知道确切时间）
-            setTimeout(() => {
-                freezeGif(gif);
-            }, 3000); // 假设GIF时长为3秒
+            // 方法：通过 GIF 的 onload 事件获取真实渲染尺寸
+            gif.onload = function() {
+                setTimeout(() => {
+                    freezeGif(gif);
+                }, 3000); // 假设 GIF 时长为 3 秒
+            };
 
-            // 方法2：更精确的canvas冻结
+            // 强制触发 onload（如果 GIF 已缓存）
+            if (gif.complete) gif.onload();
+
             function freezeGif(img) {
+                const container = document.getElementById('gif-container');
                 const canvas = document.createElement('canvas');
-                canvas.width = img.width;
-                canvas.height = img.height;
-                canvas.getContext('2d').drawImage(img, 0, 0);
-                img.src = canvas.toDataURL('image/png');
+                
+                // 使用浏览器实际渲染尺寸（非 HTML 属性尺寸）
+                canvas.width = img.offsetWidth;
+                canvas.height = img.offsetHeight;
+                
+                canvas.getContext('2d').drawImage(
+                    img, 
+                    0, 0, img.offsetWidth, img.offsetHeight, // 源尺寸
+                    0, 0, canvas.width, canvas.height        // 目标尺寸
+                );
+                
+                // 替换为 Canvas 图像
+                container.innerHTML = '';
+                container.appendChild(canvas);
+                container.innerHTML += '<a href="/" class="home-button">返回首页</a>';
             }
         });
     </script>
