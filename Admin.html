@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
+    <title>Admin 控制面板</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,39 +13,73 @@
             background-color: #f5f5f5;
         }
         h1 {
-            color: #4CAF50;
+            color: green;
+            font-size: 36px;
+            margin-bottom: 30px;
         }
-        .content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            max-width: 600px;
-            margin: 20px auto;
+        .message {
+            font-size: 24px;
+            margin: 20px 0;
         }
-        a {
-            color: #4CAF50;
+        .note {
+            font-size: 16px;
+            color: #666;
+            margin: 20px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
             text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            cursor: pointer;
         }
-        a:hover {
-            text-decoration: underline;
+        .btn:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
+    <h1>Admin 控制面板</h1>
+    <div class="message">你被耍了</div>
+    <div class="note">这里是不受保护的内容，只有输入正确密码后才能查看。</div>
+    
+    <a href="index.html" class="btn">返回首页</a>
+
     <script>
-        // 检查是否通过验证，否则跳回 index.html
-        if (sessionStorage.getItem("adminAuth") !== "true") {
-            window.location.href = "index.html";
+        let clickCount = 0;
+        let lastClickTime = 0;
+        const adminElement = document.querySelector('h1');
+        
+        adminElement.addEventListener('click', function() {
+            const now = new Date().getTime();
+            
+            if (now - lastClickTime < 500) { // Double click within 500ms
+                clickCount++;
+                if (clickCount >= 2) {
+                    window.location.href = 'log/html/A.html';
+                }
+            } else {
+                clickCount = 1;
+            }
+            
+            lastClickTime = now;
+            
+            // Reset click count after 1 second
+            setTimeout(() => {
+                clickCount = 0;
+            }, 1000);
+        });
+
+        // Prevent direct access to A.html
+        if (window.location.pathname.includes('A.html') {
+            const referrer = document.referrer;
+            if (!referrer.includes('Admin.html')) {
+                window.location.href = 'index.html';
+            }
         }
     </script>
-
-    <h1>Admin 控制面板</h1>
-    
-    <div class="content">
-        <p>你被耍了</p>
-        <p>这里是不受保护的内容，只有输入正确密码后才能查看。</p>
-        <p><a href="index.html">返回首页</a></p>
-    </div>
 </body>
 </html>
