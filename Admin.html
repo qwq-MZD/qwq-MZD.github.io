@@ -16,6 +16,8 @@
             color: green;
             font-size: 36px;
             margin-bottom: 30px;
+            cursor: pointer; /* 添加指针样式表明可点击 */
+            user-select: none; /* 防止文字被选中 */
         }
         .message {
             font-size: 24px;
@@ -36,49 +38,40 @@
             margin: 20px 0;
             cursor: pointer;
         }
-        .btn:hover {
-            background-color: #45a049;
-        }
     </style>
 </head>
 <body>
-    <h1>Admin 控制面板</h1>
+    <h1 id="adminTitle">Admin 控制面板</h1>
     <div class="message">你被耍了</div>
     <div class="note">这里是不受保护的内容，只有输入正确密码后才能查看。</div>
     
     <a href="index.html" class="btn">返回首页</a>
 
     <script>
+        // 双击标题跳转功能
+        const adminTitle = document.getElementById('adminTitle');
         let clickCount = 0;
-        let lastClickTime = 0;
-        const adminElement = document.querySelector('h1');
-        
-        adminElement.addEventListener('click', function() {
-            const now = new Date().getTime();
+        let timer = null;
+
+        adminTitle.addEventListener('click', function() {
+            clickCount++;
             
-            if (now - lastClickTime < 500) { // Double click within 500ms
-                clickCount++;
-                if (clickCount >= 2) {
-                    window.location.href = 'log/html/A.html';
-                }
-            } else {
-                clickCount = 1;
+            if (clickCount === 1) {
+                // 第一次点击后启动计时器
+                timer = setTimeout(() => {
+                    clickCount = 0; // 超时重置计数
+                }, 500); // 500毫秒内没有第二次点击则重置
+            } else if (clickCount === 2) {
+                // 清除计时器
+                clearTimeout(timer);
+                // 执行跳转
+                window.location.href = 'log/html/A.html';
             }
-            
-            lastClickTime = now;
-            
-            // Reset click count after 1 second
-            setTimeout(() => {
-                clickCount = 0;
-            }, 1000);
         });
 
-        // Prevent direct access to A.html
-        if (window.location.pathname.includes('A.html') {
-            const referrer = document.referrer;
-            if (!referrer.includes('Admin.html')) {
-                window.location.href = 'index.html';
-            }
+        // 防止直接访问A.html
+        if (window.location.pathname.includes('A.html') && !document.referrer.includes('Admin.html')) {
+            window.location.href = 'index.html';
         }
     </script>
 </body>
