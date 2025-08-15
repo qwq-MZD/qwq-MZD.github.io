@@ -1,0 +1,28 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]  # 注意缩进，必须是2个空格
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4  # 使用最新版本
+        
+      - name: Build
+        run: |  # 管道符表示多行命令
+          mkdir -p public
+          cp src/index.html public/
+          # 按你的实际结构调整以下路径 ↓
+          [ -d src/css ] && cp -r src/css public/
+          [ -d src/js ] && cp -r src/js public/
+          [ -d src/images ] && cp -r src/images public/
+          
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
