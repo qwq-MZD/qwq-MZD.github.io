@@ -1,44 +1,43 @@
-<!DOCTYPE html>  <!-- 声明文档类型为HTML5 -->
-<html lang="zh-CN">  <!-- 设置语言为中文 -->
+<!DOCTYPE html>
+<html lang="zh - CN">
 <head>
-    <style>
-       body {
-           background-image: url("Picture/1.jpg");  /* 图片路径 */
-           background-size: cover;          /* 覆盖整个屏幕 */
-           background-position: center;     /* 居中显示 */
-           background-repeat: no-repeat;    /* 不重复 */
-           background-attachment: fixed;    /* 固定背景（不随滚动移动） */
-           margin: 0;                      /* 去掉默认边距 */
-           height: 100vh;                  /* 100% 视口高度 */
-       }
-    </style>       
-    <meta charset="UTF-8">  <!-- 字符编码 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- 适配移动端 -->
+    <meta charset="UTF - 8">
+    <meta name="viewport" content="width=device - width, initial - scale = 1.0">
     <link rel="stylesheet" href="Css/inCss.css">
-    <title>M•Z•D Studio官网</title>  <!-- 浏览器标签标题 -->
-    <!-- 引入CSS文件 -->
+    <title>M•Z•D Studio官网</title>
+    <script src="script.js"></script>
 </head>
 <body>
-    <h1 id="h1" class="fade-in" style="text-align: center;">负零度工作室官网</h1>
-    <script>let c=0,t;h1.onclick=()=>{clearTimeout(t);if(++c===3)location.href='Administrator.html';t=setTimeout(()=>c=0,500)};</script>
-    <h2 class="slide-up-fade-in delay-2" style="text-align: center;">Minus  Zero  Degree  Studio</h2>
-    <h3 class="slide-up-fade-in delay-3" style="text-align: center;"><mark><b>致 力 于 创 造 与 自 由</b></mark></h3>
+    <h1 class="zh - CN fade - in" style="text-align: center;">负零度工作室官网</h1>
+    <h1 class="en fade - in" style="text-align: center;">Minus Zero Degree Studio Official Website</h1>
+    <h2 class="zh - CN slide - up - fade - in delay - 2" style="text-align: center;">致力于创造与自由</h2>
+    <h2 class="en slide - up - fade - in delay - 2" style="text-align: center;">Dedicated to Creation and Freedom</h2>
+    <h3 class="zh - CN slide - up - fade - in delay - 3" style="text-align: center;"><mark><b>我们未来的产品（开发中）</b></mark></h3>
+    <h3 class="en slide - up - fade - in delay - 3" style="text-align: center;"><mark><b>Our Future Products (Under Development)</b></mark></h3>
     <br>
     <br>
     <br>
     <br>
-    <h4 class="fade-in delay-3" style="text-align: center;"><b>我们未来的产品（开发中）</b><h4>
-    <h4 class="fade-in delay-3" style="text-align: center;"><u>Zero Degree UI</u><h4>
+    <h4 class="zh - CN fade - in delay - 3" style="text-align: center;"><u>Zero Degree UI</u></h4>
+    <h4 class="en fade - in delay - 3" style="text-align: center;"><u>Zero Degree UI</u></h4>
     <br>
     <br>
-    <a href="contact.html" class="fade-in delay-3" style="margin-right: 20px;">联系我们</a>
-    <a href="auth/login.html" class="fade-in delay-3">登录</a>
-    <a href="auth/register.html" class="fade-in delay-3" style="margin-right: 20px;">注册</a>
-    <a href="01S.html" class="fade-in delay-3" style="margin-right: 20px;"><mark><b>0&1 Studio</b></mark></a>
-    <a href="BallGame.html" class="fade-in delay-3">玩游戏？</a>
-    <a href="UserAgreement.txt" class="fade-in delay-3">用户协议</a>
-    <a href="PrivacyPolicy.txt" class="fade-in delay-3">隐私政策</a>
-</body>
-    <a href="Mc.html" class="fade-in delay-3">MC</a>
+    <a href="contact.html" class="zh - CN fade - in delay - 3" style="margin - right: 20px;">联系我们</a>
+    <a href="contact.html" class="en fade - in delay - 3" style="margin - right: 20px;">Contact Us</a>
+    <a href="auth/login.html" class="zh - CN fade - in delay - 3">登录</a>
+    <a href="auth/login.html" class="en fade - in delay - 3">Login</a>
+    <a href="auth/register.html" class="zh - CN fade - in delay - 3" style="margin - right: 20px;">注册</a>
+    <a href="auth/register.html" class="en fade - in delay - 3" style="margin - right: 20px;">Register</a>
+    <a href="01S.html" class="zh - CN fade - in delay - 3" style="margin - right: 20px;"><mark><b>0&1 Studio</b></mark></a>
+    <a href="01S.html" class="en fade - in delay - 3" style="margin - right: 20px;"><mark><b>0&1 Studio</b></mark></a>
+    <a href="BallGame.html" class="zh - CN fade - in delay - 3">玩游戏？</a>
+    <a href="BallGame.html" class="en fade - in delay - 3">Play Games?</a>
+    <a href="UserAgreement.txt" class="zh - CN fade - in delay - 3">用户协议</a>
+    <a href="UserAgreement.txt" class="en fade - in delay - 3">User Agreement</a>
+    <a href="PrivacyPolicy.txt" class="zh - CN fade - in delay - 3">隐私政策</a>
+    <a href="PrivacyPolicy.txt" class="en fade - in delay - 3">Privacy Policy</a>
+    <a href="Mc.html" class="zh - CN fade - in delay - 3">MC</a>
+    <a href="Mc.html" class="en fade - in delay - 3">MC</a>
+    <button onclick="toggleLanguage()">切换语言</button>
 </body>
 </html>
