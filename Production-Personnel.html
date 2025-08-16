@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .credits-container {
+            height: 500px; /* 设置容器高度 */
+            width: 80%; /* 设置容器宽度 */
+            max-width: 800px;
+            overflow: hidden; /* 隐藏超出部分 */
+            position: relative;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            border: 2px solid #ffcc00;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+        }
+        
+        .main-title {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 2.5em;
+            color: #ffcc00;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10;
+            border-bottom: 1px solid #ffcc00;
+        }
+        
+        .credits {
+            position: absolute;
+            width: 100%;
+            top: 100%;
+            animation: scroll 40s linear infinite; /* 40秒完成一次滚动，无限循环 */
+            padding-top: 80px; /* 给大标题留出空间 */
+            padding-bottom: 100px; /* 确保最后内容能完全滚动出去 */
+        }
+        
+        @keyframes scroll {
+            0% { top: 100%; } /* 开始位置 - 完全在容器下方 */
+            100% { top: -100%; } /* 结束位置 - 完全滚动到容器上方 */
+        }
+        
+        .section {
+            margin: 30px 0;
+            padding: 0 40px;
+            text-align: left;
+        }
+        
+        .section-title {
+            font-size: 1.5em;
+            color: #ffcc00;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ffcc00;
+        }
+        
+        .role {
+            font-weight: bold;
+            color: #ffcc00;
+            display: inline-block;
+            width: 100px;
+        }
+        
+        .name {
+            margin-left: 20px;
+        }
+        
+        p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="credits-container">
+        <div class="main-title">制作人员名单</div>
+        
+        <div class="credits">
+            <!--  -->
+            <div class="section">
+                <div class="section-title">程序制作人员</div>
+                <p><span class="role">长袖策划</span><span class="name">就是neko啊</span></p>
+                <p><span class="role">程序员</span><span class="name">就是neko啊</span></p>
+                <p><span class="role">后期美化</span><span class="name">就是neko啊、DeepSeek-R1</span></p>
+            </div>
+            
+            <!-- -->
+            <div class="section">
+                <div class="section-title">美术</div>
+                <p><span class="role">美术策划</span><span class="name">就是neko啊</span></p>
+                <p><span class="role">美术绘画</span><span class="name">就是neko啊</span></p>
+                <p><span class="role">后期处理</span><span class="name">就是neko啊、doubao.com（DouBaoAI模型）</span></p>
+            </div>
+            
+            <!--  -->
+            <div class="section">
+                <div class="section-title">（广告位招租）</div>
+                <p><span class="role">广告</span><span class="name">广告</span></p>
+                <p><span class="role">广告</span><span class="name">广告</span></p>
+                <p><span class="role">广告</span><span class="name">广告</span></p>
+            </div>
+            
+            <!--  -->
+            <div class="section">
+                <div class="section-title">（广告位招租）</div>
+                <p><span class="role">广告</span><span class="name">广告</span></p>
+                <p><span class="role">广告</span><span class="name">广告</span></p>
+                <p><span class="role">广告</span><span class="name">广告</span></p>
+                <p><span class="role">广告</span><span class="name">广告</span></p>
+            </div>
+            
+            <!-- -->
+            <div class="section">
+                <div class="section-title">赞助商</div>
+                <p>M•Z•D Studio</p>
+                <p>Zero&One Studio</p>
+                <p>所有参与本站制作的工作人员</p>
+                <p>以及现在你现在用的浏览器</p>
+            </div>
+            
+            <!-- 版权信息 -->
+            <div class="section">
+                <p style="text-align: center; margin-top: 50px;">M•Z•D Studio International</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
